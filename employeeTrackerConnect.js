@@ -23,19 +23,36 @@ function init(){
 }
 
 function createDepartment(){
-    inquirer.prompt([{
-
-    }])
+    inquirer.prompt([
+    {
+        type: 'list',
+        name: "Department Nme",
+        choices: ["Sales", "Customer Service", "Human Resources", "Engineering", "Quality Control", "Cyber Security"]
+    },
+    ]),
 }
 
 function createRole(){
-    inquirer.prompt([{
-
-    }])
+    inquirer.prompt([
+    {
+        type: 'list',
+        name: 'Employee Role',
+        choices: ['Sales Person', 'CSR', 'HR specialist', 'Software Engineer', "Software Tester", 'Cyber Security Specialist']
+    },
+    ]),
 }
 
 function createEmployee(){
-    inquirer.prompt([{
-        
-    }])
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'Employee First Name',
+            message: 'Please input the employee\'s first name.'
+        },
+        {
+            type: 'input',
+            name: 'Employee Last Name',
+            message: 'Please input the employee\'s last name.'
+        },
+    ])
 }
