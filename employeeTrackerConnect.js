@@ -21,11 +21,49 @@ connection.query = util.promisify(connection.query);
 
 function init(){
     inquirer.prompt([{
-
-    }])
+        type: 'list',
+        name: 'userOptions',
+        message: 'What would you like to do?',
+        choices: [
+            'View all departments',
+            'Add department',
+            'View all roles',
+            'Add role',
+            'View all employees',
+            'Add employee',
+            'Edit employee role',
+            'Exit'
+        ]
+    }]).then(function(response){
+        switch(response.userOptions){
+            case 'View all Departments':
+                viewDepartments();
+                break;
+            case "Add department":
+                addDepartment();
+                break;
+            case 'view all roles':
+                viewRoles();
+                break;
+            case 'Add role':
+                addRole();
+                break;
+            case 'View all employees':
+                viewEmployees();
+                break;
+            case 'Add employee':
+                addEmployee();
+                break;
+            case 'Edit employee role':
+                editRole():
+                break;
+            case 'Exit':
+                default: connection.end();
+        }
+    })
 }
 
-function createDepartment(){
+function addDepartment(){
     inquirer.prompt([
     {
         type: 'list',
@@ -35,7 +73,7 @@ function createDepartment(){
     ]),
 }
 
-function createRole(){
+function addRole(){
     inquirer.prompt([
     {
         type: 'list',
@@ -45,7 +83,7 @@ function createRole(){
     ]),
 }
 
-function createEmployee(){
+function addEmployee(){
     inquirer.prompt([
         {
             type: 'input',
