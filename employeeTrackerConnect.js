@@ -1,3 +1,4 @@
+const util =require('util')
 const mysql = require('mysql');
 const inquirer = require('inquirer');
 
@@ -15,6 +16,8 @@ connection.connect((err) => {
 
     init();
 });
+
+connection.query = util.promisify(connection.query);
 
 function init(){
     inquirer.prompt([{
@@ -56,3 +59,5 @@ function createEmployee(){
         },
     ])
 }
+
+module.exports = connection
