@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
 });
 
 connection.connect((err) => {
-    if err throw err;
+    if (err) throw (err);
     console.log('connected as id ${connection.threadId}');
 
     init();
@@ -55,7 +55,7 @@ function init(){
                 addEmployee();
                 break;
             case 'Edit employee role':
-                editRole():
+                editRole();
                 break;
             case 'Exit':
                 default: connection.end();
@@ -67,8 +67,8 @@ function addDepartment(){
     inquirer.prompt([
     {
         type: 'list',
-        name: "Department Nme",
-        choices: ["Sales", "Customer Service", "Human Resources", "Engineering", "Quality Control", "Cyber Security"]
+        name: "Department Name",
+        choices: ["Administration", "Software Development", "Quality Control"]
     },
     ]),
 }
@@ -81,7 +81,7 @@ function addRole(){
         choices: ['Sales Person', 'CSR', 'HR specialist', 'Software Engineer', "Software Tester", 'Cyber Security Specialist']
     },
     ]),
-}
+}   
 
 function addEmployee(){
     inquirer.prompt([
@@ -96,6 +96,22 @@ function addEmployee(){
             message: 'Please input the employee\'s last name.'
         },
     ])
+}
+
+function viewDepartments(){
+    
+}
+
+function viewRoles(){
+
+}
+
+function viewEmployees(){
+
+}
+
+function editRole(){
+
 }
 
 module.exports = connection
