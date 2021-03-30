@@ -1,4 +1,4 @@
-const util =require('util')
+const util = require('util')
 const mysql = require('mysql');
 const inquirer = require('inquirer');
 
@@ -10,12 +10,7 @@ const connection = mysql.createConnection({
     database: 'employee_trackerDB',
 });
 
-connection.connect((err) => {
-    if (err) throw (err);
-    console.log('connected as id ${connection.threadId}');
-
-    init();
-});
+connection.connect()
 
 connection.query = util.promisify(connection.query);
 
@@ -28,7 +23,6 @@ function init(){
             'View all departments',
             'Add department',
             'View all roles',
-            'Add role',
             'View all employees',
             'Add employee',
             'Edit employee role',
@@ -36,20 +30,17 @@ function init(){
         ]
     }]).then(function(response){
         switch(response.userOptions){
-            case 'View all Departments':
+            case 'View all departments':
                 viewDepartments();
                 break;
-            case "Add department":
+            case 'Add department':
                 addDepartment();
                 break;
             case 'view all roles':
                 viewRoles();
                 break;
-            case 'Add role':
-                addRole();
-                break;
             case 'View all employees':
-                viewEmployees();
+                viewEmployee();
                 break;
             case 'Add employee':
                 addEmployee();
@@ -63,47 +54,50 @@ function init(){
     })
 }
 
-function addDepartment(){
-    inquirer.prompt([
-    {
-        type: 'list',
-        name: "Department Name",
-        choices: ["Administration", "Software Development", "Quality Control"]
-    },
-    ]),
-}
 
-function addRole(){
-    inquirer.prompt([
-    {
-        type: 'list',
-        name: 'Employee Role',
-        choices: ['Sales Person', 'CSR', 'HR specialist', 'Software Engineer', "Software Tester", 'Cyber Security Specialist']
-    },
-    ]),
-}   
 
-function addEmployee(){
-    inquirer.prompt([
-        {
-            type: 'input',
-            name: 'Employee First Name',
-            message: 'Please input the employee\'s first name.'
-        },
-        {
-            type: 'input',
-            name: 'Employee Last Name',
-            message: 'Please input the employee\'s last name.'
-        },
-    ])
-}
+// function addRole(){
+//     inquirer.prompt([
+//     {
+//         type: 'list',
+//         name: 'Employee Role',
+//         choices: ['Manager', "Human Resources Specialist", "Marketing Director", "Lead Software Developer", "Senior Software Developer", "Junior Software Developer",]
+//     },
+//     ]),
+// }   
+
+// function addEmployee(){
+//     inquirer.prompt([
+//         {
+//             type: 'input',
+//             name: 'Employee Last Name',
+//             message: 'Please input the employee\'s first name.'
+//         },
+//         {
+//             type: 'input',
+//             name: 'Employee First Name',
+//             message: 'Please input the employee\'s last name.'
+//         },
+//         {
+//             type: 'input'
+//         },
+//     ])
+// }
 
 function viewDepartments(){
-    
+    connection.query("SELECT * FROM department", function (err, data) {
+        if (err) throw err
+        console.table(data);
+        init();
+    })
+}
+
+function addDepartment() {
+
 }
 
 function viewRoles(){
-
+    
 }
 
 function viewEmployees(){
