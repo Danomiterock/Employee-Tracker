@@ -39,16 +39,13 @@ VALUES ("Administration"), ("Software Development"), ("Quality Control");
 INSERT INTO role (title, salary, department_id)
     VALUES ("Manager", 120000, 1), ("Human Resources Specialist", 50000, 1), ("Marketing Director", 80000, 1), ("Lead Software Developer", 100000, 2); ("Senior Software Developer", 85000, 2), ("Junior Software Developer", 45000, 2), ("Lead Tester", 95000, 3), ("Senior Tester", 75000, 3), ("Junior Tester", 40000, 3);
 
-INSERT INTO employee (last_name, first_name, role_id, department_id)
-    VALUES ("Gomez", "Sergio", 1, 1), ("Troung", "Danh", 1, 2), ("Biernat", "Kate", 1, 3), ("Chabert", "Lacey", 2, 1), ("Elf", "Buddy", 3, 1), ("Supernerd", "Nathan", 4, 2), ("Dushku", "Eliza", 5, 2), ("Reynolds", "Ryan", 5, 2), ("McCallister", "Kevin", 6, 2), ("Brown", "Charles", 6, 2), ("Connery", "Sean", 7, 3), ("Johanson", "Scarlet", 8, 3), ("Jovovich", "Milla", 8, 3), ("Reeves", "Keanu", 9, 3), ("McGregor", "Ewan", 9, 3);
+INSERT INTO employee (last_name, first_name, role_id, manager_id)
+    VALUES ("Gomez", "Sergio", 1, null), ("Troung", "Danh", 1, null), ("Biernat", "Kate", 1, null), ("Chabert", "Lacey", 2, null), ("Elf", "Buddy", 3, null), ("Supernerd", "Nathan", 4, null), ("Dushku", "Eliza", 5, null), ("Reynolds", "Ryan", 5, null), ("McCallister", "Kevin", 6, null), ("Brown", "Charles", 6, null), ("Connery", "Sean", 7, null), ("Johanson", "Scarlet", 8, null), ("Jovovich", "Milla", 8, null), ("Reeves", "Keanu", 9, null), ("McGregor", "Ewan", 9, null);
 
 SELECT * FROM department;
 SELECT * FROM role;
-SELECT * FROM employee;
+SELECT * FROM employee; 
 
 SELECT employee.id, last_name, first_name, title, department_name, department_manager, salary
 FROM employees JOIN role ON employees.role_id = role.id
 JOIN department ON role.department_id= department.id;
-
-
-

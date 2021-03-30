@@ -4,7 +4,7 @@ const inquirer = require("inquirer");
 
 const connection = mysql.createConnection({
   host: "localhost",
-  port: 3750,
+  port: "3306",
   user: "root",
   password: "",
   database: "employee_trackerDB",
@@ -122,7 +122,7 @@ function viewRoles() {
   });
 }
 
-function viewEmployees() {
+function viewEmployee() {
   connection.query("SELECT * FROM employee", function (err, data) {
     if (err) throw err;
     console.table(data);
@@ -133,3 +133,5 @@ function viewEmployees() {
 // function editRole(){
 
 // }
+
+init()
