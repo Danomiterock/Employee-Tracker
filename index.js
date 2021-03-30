@@ -1,4 +1,4 @@
-const util = require('util')
+const util = require('util');
 const mysql = require('mysql');
 const inquirer = require('inquirer');
 
@@ -56,33 +56,34 @@ function init(){
 
 
 
-// function addRole(){
-//     inquirer.prompt([
-//     {
-//         type: 'list',
-//         name: 'Employee Role',
-//         choices: ['Manager', "Human Resources Specialist", "Marketing Director", "Lead Software Developer", "Senior Software Developer", "Junior Software Developer",]
-//     },
-//     ]),
-// }   
+function addRole(){
+    inquirer.prompt([
+    {
+        type: 'list',
+        name: 'Employee Role',
+        choices: ['Manager', "Human Resources Specialist", "Marketing Director", "Lead Software Developer", "Senior Software Developer", "Junior Software Developer"]
+    },
+    ]),
+}   
 
-// function addEmployee(){
-//     inquirer.prompt([
-//         {
-//             type: 'input',
-//             name: 'Employee Last Name',
-//             message: 'Please input the employee\'s first name.'
-//         },
-//         {
-//             type: 'input',
-//             name: 'Employee First Name',
-//             message: 'Please input the employee\'s last name.'
-//         },
-//         {
-//             type: 'input'
-//         },
-//     ])
-// }
+function addEmployee(){
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'Employee Last Name',
+            message: 'Please input the employee\'s first name.'
+        },
+        {
+            type: 'input',
+            name: 'Employee First Name',
+            message: 'Please input the employee\'s last name.'
+        },
+        {
+            name: 'Employee Role',
+            choices: ['Manager', "Human Resources Specialist", "Marketing Director", "Lead Software Developer", "Senior Software Developer", "Junior Software Developer"]
+        },
+    ])
+}
 
 function viewDepartments(){
     connection.query("SELECT * FROM department", function (err, data) {
@@ -92,20 +93,27 @@ function viewDepartments(){
     })
 }
 
-function addDepartment() {
+// function addDepartment() {
 
-}
+// }
 
 function viewRoles(){
-    
+    connection.query("SELECT * FROM role", function (err, data) {
+        if (err) throw err
+        console.table(data);
+        init();
 }
 
 function viewEmployees(){
+    connection.query("SELECT * FROM employee", function (err, data) {
+        if (err) throw err;
+        console.table(data);
+        init();
+},
 
-}
 
-function editRole(){
+// function editRole(){
 
-}
+// }
 
 module.exports = connection
