@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS employee_trackerDB;
+-- DROP DATABASE IF EXISTS employee_trackerDB;
 
 CREATE DATABASE employee_trackerDB;
 
@@ -34,13 +34,13 @@ CREATE TABLE employee (
 
 
 INSERT INTO department (department_name, department_manager)
-VALUES ("Administration", "Matt Johnson"), ("Software Development", "Danh Troung"), ("Quality Control", "John Lucas");
+VALUES ("Administration"), ("Software Development"), ("Quality Control");
 
 INSERT INTO role (title, salary, department_id)
     VALUES ("Manager", 120000, 1), ("Human Resources Specialist", 50000, 1), ("Marketing Director", 80000, 1), ("Lead Software Developer", 100000, 2); ("Senior Software Developer", 85000, 2), ("Junior Software Developer", 45000, 2), ("Lead Tester", 95000, 3), ("Senior Tester", 75000, 3), ("Junior Tester", 40000, 3);
 
-INSERT INTO employee (last_name, first_name, role.title)
-    VALUES ("Chabert", "Lacey", "Human Resources Specialist"), ("Elf", "Buddy", "Marketing Director"), ("Supernerd", "Nathan", "Lead Software Developer"), ("Dushku", "Eliza", "Senior Software Developer"), ("Reynolds", "Ryan", "Senior Software Developer"), ("McCallister", "Kevin", "Junior Software Developer"), ("Brown", "Charles", "Junior Software Developer"), ("Connery", "Sean", "Lead Tester"), ("Johanson", "Scarlet", "Senior Tester"), ("Jovovich", "Milla", "Senior Tester"), ("Reeves", "Keanu", "Junior Tester"), ("McGregor", "Ewan", "Junior Tester");
+INSERT INTO employee (last_name, first_name, role_id, department_id)
+    VALUES ("Gomez", "Sergio", 1, 1), ("Troung", "Danh", 1, 2), ("Biernat", "Kate", 1, 3), ("Chabert", "Lacey", 2, 1), ("Elf", "Buddy", 3, 1), ("Supernerd", "Nathan", 4, 2), ("Dushku", "Eliza", 5, 2), ("Reynolds", "Ryan", 5, 2), ("McCallister", "Kevin", 6, 2), ("Brown", "Charles", 6, 2), ("Connery", "Sean", 7, 3), ("Johanson", "Scarlet", 8, 3), ("Jovovich", "Milla", 8, 3), ("Reeves", "Keanu", 9, 3), ("McGregor", "Ewan", 9, 3);
 
 SELECT * FROM department;
 SELECT * FROM role;
