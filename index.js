@@ -25,9 +25,9 @@ function init() {
           "View all departments",
           "Add department",
           "View all roles",
+          "Add role",
           "View all employees",
           "Add employee",
-          "Edit employee role",
           "Exit",
         ],
       },
@@ -40,8 +40,11 @@ function init() {
         case "Add department":
           addDepartment();
           break;
-        case "view all roles":
+        case "View all roles":
           viewRoles();
+          break;
+        case "Add role":
+          addRole();
           break;
         case "View all employees":
           viewEmployee();
@@ -49,57 +52,11 @@ function init() {
         case "Add employee":
           addEmployee();
           break;
-        case "Edit employee role":
-          editRole();
-          break;
         case "Exit":
         default:
           connection.end();
       }
     });
-}
-
-function addRole() {
-  inquirer.prompt([
-    {
-      type: "list",
-      name: "Employee Role",
-      choices: [
-        "Manager",
-        "Human Resources Specialist",
-        "Marketing Director",
-        "Lead Software Developer",
-        "Senior Software Developer",
-        "Junior Software Developer",
-      ],
-    },
-  ]);
-}
-
-function addEmployee() {
-  inquirer.prompt([
-    {
-      type: "input",
-      name: "Employee Last Name",
-      message: "Please input the employee's first name.",
-    },
-    {
-      type: "input",
-      name: "Employee First Name",
-      message: "Please input the employee's last name.",
-    },
-    {
-      name: "Employee Role",
-      choices: [
-        "Manager",
-        "Human Resources Specialist",
-        "Marketing Director",
-        "Lead Software Developer",
-        "Senior Software Developer",
-        "Junior Software Developer",
-      ],
-    },
-  ]);
 }
 
 function viewDepartments() {
@@ -110,15 +67,77 @@ function viewDepartments() {
   });
 }
 
-// function addDepartment() {
-
-// }
+function addDepartment() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "department_name",
+        message: "Please input the department name.",
+      },
+    ])
+    .then((answers) => {
+      connection.query(
+        "INSERT INTO department SET ?",
+        answers,
+        function (err, data) {
+          if (err) throw err;
+          console.table(data);
+          viewDepartments();
+          init();
+        }
+      );
+    });
+}
 
 function viewRoles() {
   connection.query("SELECT * FROM role", function (err, data) {
     if (err) throw err;
     console.table(data);
     init();
+  });
+}
+
+function addRole() {
+  connection.query("SELECT * FROM department", function (err, data) {
+    if (err) throw err;
+    const departments = [
+      ...data.map((department) => ({
+        value: department.department_id,
+        name: department.department_name,
+      })),
+    ];
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "department_id",
+          message: "Please choose the department.",
+          choices: departments,
+        },
+        {
+          type: "input",
+          name: "title",
+          message: "Enter the title of the new role",
+        },
+        {
+          type: "input",
+          name: "salary",
+          message: "Please enter the annual salary for this role.",
+        },
+      ])
+      .then((answers) => {
+        connection.query(
+          "INSERT INTO role SET ?",
+          answers,
+          function (err, data) {
+            if (err) throw err;
+            console.table(data);
+            viewRoles();
+            init();
+          }
+        );
+      });
   });
 }
 
@@ -130,8 +149,42 @@ function viewEmployee() {
   });
 }
 
-// function editRole(){
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "last_name",
+        message: "Please input the employee's first name.",
+      },
+      {
+        type: "input",
+        name: "first_name",
+        message: "Please input the employee's last name.",
+      },
+      {
+        type: "list",
+        name: "role_id",
+        message: "Choose employee role",
+        choices: [
+          { name: "Manager", value: 1 },
+          { name: "Human Resources Specialist", value: 2 },
+          { name: "Marketing Director", value: 3 },
+        ],
+      },
+    ])
+    .then((answers) => {
+      connection.query(
+        "INSERT INTO employee SET ?",
+        answers,
+        function (err, data) {
+          if (err) throw err;
+          console.table(data);
+          viewEmployee();
+          init();
+        }
+      );
+    });
+}
 
-// }
-
-init()
+init();
