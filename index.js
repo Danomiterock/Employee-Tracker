@@ -150,7 +150,7 @@ function viewEmployee() {
 }
 
 function addEmployee() {
-  connection.query("SELECT * FROM department", function (err, data) {
+  connection.query("SELECT * FROM role", function (err, data) {
     if (err) throw err;
     const roles = [
       ...data.map((role) => ({
@@ -172,7 +172,7 @@ function addEmployee() {
       },
       {
         type: "list",
-        name: "title",
+        name: "role_id",
         message: "Choose employee role",
         choices: roles,
       },
