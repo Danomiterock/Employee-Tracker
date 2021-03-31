@@ -28,6 +28,7 @@ function init() {
           "Add role",
           "View all employees",
           "Add employee",
+          "Edit employee role",
           "Exit",
         ],
       },
@@ -51,6 +52,9 @@ function init() {
           break;
         case "Add employee":
           addEmployee();
+          break;
+        case "Edit employee role":
+          editEmployee();
           break;
         case "Exit":
         default:
@@ -190,6 +194,31 @@ function addEmployee() {
       );
     });
   });
+}
+
+async function editEmployee(){
+  const allEmployees = await database.employee_view();
+  const allRoles = await database.role_view();
+  editEmp = {};
+  editEmp = await prompt([{
+    name: "first_name",
+    type: "rawlist",
+    message: "Which employee is changing roles?",
+    choices: allEmployees.map(({ first_name, last_name}) => ({
+      name: first_name, last_name,
+    }))
+  }]),
+  editEmp.role = await prompt([{
+    name: "role_id",
+    type: "rawlist",
+    message: "Please select the employee\'s new role.",
+    choices: allRoles.map(({role_id, title}) => ({
+      name: title,
+      value: role_id
+    }))
+  }])
+  console.log("Role updated");
+  viewEmployee();
 }
 
 init();
