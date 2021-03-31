@@ -150,27 +150,31 @@ function viewEmployee() {
 }
 
 function addEmployee() {
+  connection.query("SELECT * FROM department", function (err, data) {
+    if (err) throw err;
+    const roles = [
+      ...data.map((role) => ({
+        value: role.role_id,
+        name: role.title,
+      })),
+    ];
   inquirer
     .prompt([
       {
         type: "input",
-        name: "last_name",
+        name: "first_name",
         message: "Please input the employee's first name.",
       },
       {
         type: "input",
-        name: "first_name",
+        name: "last_name",
         message: "Please input the employee's last name.",
       },
       {
         type: "list",
-        name: "role_id",
+        name: "title",
         message: "Choose employee role",
-        choices: [
-          { name: "Manager", value: 1 },
-          { name: "Human Resources Specialist", value: 2 },
-          { name: "Marketing Director", value: 3 },
-        ],
+        choices: roles,
       },
     ])
     .then((answers) => {
@@ -185,6 +189,7 @@ function addEmployee() {
         }
       );
     });
+  });
 }
 
 init();
